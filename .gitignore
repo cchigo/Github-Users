@@ -1,15 +1,37 @@
+# Android Studio
+.idea/
 *.iml
-.gradle
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
-.DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
+*.hprof
+
+# Gradle
+.gradle/
+build/
+captures/
+output.json
+
+# Local configuration
 local.properties
+
+# Mac OS
+.DS_Store
+
+# Kotlin
+*.kotlin_module
+
+# Jetpack Compose / preview / tooling
+*.apk
+*.ap_
+*.aab
+
+# Testing / generated files
+.junit/
+*.log
+*.tmp
+
+# Room / database
+*.db
+*.db-journal
+
+# Optional: Jetpack Compose fonts
+*.ttf
+*.otf
