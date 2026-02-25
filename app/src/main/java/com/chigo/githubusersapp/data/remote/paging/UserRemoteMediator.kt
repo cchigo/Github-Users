@@ -9,9 +9,9 @@ import com.chigo.githubusersapp.data.local.db.AppDatabase
 import com.chigo.githubusersapp.data.local.model.UserEntity
 import com.chigo.githubusersapp.data.remote.datasource.UserRemoteDataSource
 import com.chigo.githubusersapp.data.remote.mapper.toUserEntity
-import com.chigo.githubusersapp.data.remote.model.UserDto
 import com.chigo.githubusersapp.data.util.GeneralErrorHandler
 import com.chigo.githubusersapp.data.util.STARTING_PAGE
+
 /**
  * We assume GitHub's `since` parameter efficiently represents the last fetched key,
  *
