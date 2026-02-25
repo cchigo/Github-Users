@@ -3,6 +3,7 @@ package com.chigo.githubusersapp.presentation.navigation
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import com.chigo.githubusersapp.presentation.features.userdetail.navigateToUserDetail
 import com.chigo.githubusersapp.presentation.features.userdetail.userDetailScreen
 import com.chigo.githubusersapp.presentation.features.userlist.UserListDestination
 import com.chigo.githubusersapp.presentation.features.userlist.userListScreen
@@ -15,13 +16,13 @@ fun NavGraph(navController: NavHostController) {
     ) {
         userListScreen(
             onUserClick = { username ->
-               // navController.navigateToUserDetail(username)
+                navController.navigateToUserDetail(username)
             }
         )
-//        userDetailScreen(
-//            onBackClick = {
-//                navController.popBackStack()
-//            }
-//        )
+        userDetailScreen(
+            onBackClick = {
+                navController.popBackStack()
+            }
+        )
     }
 }
