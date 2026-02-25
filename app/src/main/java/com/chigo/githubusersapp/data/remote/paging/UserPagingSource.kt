@@ -3,7 +3,7 @@ package com.chigo.githubusersapp.data.remote.paging
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.chigo.githubusersapp.BuildConfig
-import com.chigo.githubusersapp.data.mapper.toDomain
+import com.chigo.githubusersapp.data.remote.mapper.toDomain
 import com.chigo.githubusersapp.data.remote.datasource.UserRemoteDataSource
 import com.chigo.githubusersapp.data.util.GeneralErrorHandler
 import com.chigo.githubusersapp.data.util.STARTING_PAGE

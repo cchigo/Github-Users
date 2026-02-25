@@ -1,4 +1,4 @@
-package com.chigo.githubusersapp.data.mapper
+package com.chigo.githubusersapp.data.remote.mapper
 
 import com.chigo.githubusersapp.data.remote.model.UserDetailDto
 import com.chigo.githubusersapp.domain.model.UserDetail

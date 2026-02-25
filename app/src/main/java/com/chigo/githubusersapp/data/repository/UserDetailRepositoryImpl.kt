@@ -1,6 +1,6 @@
 package com.chigo.githubusersapp.data.repository
 
-import com.chigo.githubusersapp.data.mapper.toDomain
+import com.chigo.githubusersapp.data.remote.mapper.toDomain
 import com.chigo.githubusersapp.data.remote.datasource.UserRemoteDataSource
 import com.chigo.githubusersapp.domain.model.UserDetail
 import com.chigo.githubusersapp.domain.repository.UserDetailRepository
