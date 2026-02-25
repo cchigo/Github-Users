@@ -5,16 +5,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
 import com.chigo.githubusersapp.BuildConfig
-import com.chigo.githubusersapp.domain.usecase.GetUserDetailUseCase
 import com.chigo.githubusersapp.data.util.BaseResponse
 import com.chigo.githubusersapp.data.util.DEFAULT_ERROR_MESSAGE
+import com.chigo.githubusersapp.domain.usecase.GetUserDetailUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
 
 

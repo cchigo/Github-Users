@@ -50,7 +50,7 @@ class UserListViewModel @Inject constructor(
                 }
                 loadState.append is LoadState.Error -> {
                     val error = (loadState.append as LoadState.Error).error
-                    UserListState.AppendError("Unable to load more users, please try again" ?: DEFAULT_ERROR_MESSAGE)
+                    UserListState.AppendError("Unable to load more users, please try again" ?: error.message ?: DEFAULT_ERROR_MESSAGE)
                 }
                 loadState.refresh is LoadState.NotLoading ->
                     UserListState.Success(_users.value)

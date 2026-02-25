@@ -12,6 +12,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -35,7 +36,6 @@ fun UserListScreen(
     val users = viewModel.pagingFlow.collectAsLazyPagingItems()
     val screenState by viewModel.screenState.collectAsState()
 
-
     LaunchedEffect(users.loadState) {
         viewModel.onLoadStateChanged(users.loadState, users.itemCount)
     }
@@ -58,22 +58,27 @@ fun UserListScreen(
                 .fillMaxSize()
                 .padding(innerPadding)
         ) {
-
-            LazyColumn(
-                modifier = Modifier.fillMaxSize(),
-                contentPadding = PaddingValues(16.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
+            PullToRefreshBox(
+                isRefreshing = screenState is UserListState.Refreshing,
+                onRefresh = { users.refresh() },
+                modifier = Modifier.fillMaxSize()
             ) {
-                items(
-                    count = users.itemCount,
-                    key = users.itemKey { it.id }
-                ) { index ->
-                    val user = users[index]
-                    if (user != null) {
-                        UserListItem(
-                            user = user,
-                            onUserClick = onUserClick
-                        )
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize(),
+                    contentPadding = PaddingValues(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    items(
+                        count = users.itemCount,
+                        key = users.itemKey { it.id }
+                    ) { index ->
+                        val user = users[index]
+                        if (user != null) {
+                            UserListItem(
+                                user = user,
+                                onUserClick = onUserClick
+                            )
+                        }
                     }
                 }
             }
@@ -86,12 +91,7 @@ fun UserListScreen(
                         modifier = Modifier.align(Alignment.Center)
                     )
                 }
-                is UserListState.Refreshing -> {
-                    // user triggered a refresh, shows centered spinner
-                    CircularProgressIndicator(
-                        modifier = Modifier.align(Alignment.Center)
-                    )
-                }
+                is UserListState.Refreshing -> {}
                 is UserListState.Appending -> {
                     // more pages loading, a float indicator is shown at the bottom, with a delay to show this
                     AppendLoadingIndicator(
