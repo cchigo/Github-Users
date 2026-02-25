@@ -24,6 +24,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
 import com.chigo.githubusersapp.presentation.features.userlist.components.AppendLoadingIndicator
 import com.chigo.githubusersapp.presentation.features.userlist.components.UserListItem
+import com.chigo.githubusersapp.presentation.sharedcomponents.ErrorSnackbar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -101,20 +102,22 @@ fun UserListScreen(
                 }
                 is UserListState.Error -> {
                     // error on initial load
-                    Text(
-                        text = state.message,
-                        modifier = Modifier.align(Alignment.Center),
-                        color = MaterialTheme.colorScheme.error
+                    ErrorSnackbar(
+                        message = state.message,
+                        onRetry = { users.refresh() },
+                        modifier = Modifier
+                            .align(Alignment.BottomCenter)
+                            .padding(bottom = 16.dp)
                     )
                 }
                 is UserListState.AppendError -> {
                     // failed to load next page error is shown at bottom
-                    Text(
-                        text = state.message,
+                    ErrorSnackbar(
+                        message = state.message,
+                        onRetry = { users.retry() },
                         modifier = Modifier
                             .align(Alignment.BottomCenter)
-                            .padding(bottom = 16.dp),
-                        color = MaterialTheme.colorScheme.error
+                            .padding(bottom = 16.dp)
                     )
                 }
                 is UserListState.Success -> {}

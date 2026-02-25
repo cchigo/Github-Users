@@ -34,37 +34,33 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.chigo.githubusersapp.presentation.sharedcomponents.UserAvatarImage
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun UserDetailScreen(
-    viewModel: UserDetailViewModel,
-    onBackClick: () -> Unit
+    viewModel: UserDetailViewModel, onBackClick: () -> Unit
 ) {
     val state by viewModel.state.collectAsState()
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = {
-                    Text(
-                        text = state.userDetail?.login ?: "User Detail",
-                        style = MaterialTheme.typography.titleLarge,
-                        color = Color.Black
+            TopAppBar(title = {
+                Text(
+                    text = state.userDetail?.login ?: "User Detail",
+                    style = MaterialTheme.typography.titleLarge,
+                    color = Color.Black
+                )
+            }, navigationIcon = {
+                IconButton(onClick = onBackClick) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = "Back",
+                        tint = Color.Black
                     )
-                },
-                navigationIcon = {
-                    IconButton(onClick = onBackClick) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back",
-                            tint = Color.Black
-                        )
-                    }
                 }
-            )
-        }
-    ) { innerPadding ->
+            })
+        }) { innerPadding ->
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -79,6 +75,7 @@ fun UserDetailScreen(
 
             // error state
             state.error?.let { error ->
+
                 Text(
                     text = error,
                     modifier = Modifier.align(Alignment.Center),
@@ -95,14 +92,8 @@ fun UserDetailScreen(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
-                    // avatar
-                    AsyncImage(
-                        model = user.avatarUrl,
-                        contentDescription = "${user.login} avatar",
-                        modifier = Modifier
-                            .size(100.dp)
-                            .clip(CircleShape),
-                        contentScale = ContentScale.Crop
+                    UserAvatarImage(
+                        avatarUrl = user.avatarUrl, username = user.login, size = 100.dp
                     )
 
                     // username
@@ -127,12 +118,10 @@ fun UserDetailScreen(
                         horizontalArrangement = Arrangement.SpaceEvenly
                     ) {
                         StatCard(
-                            label = "Followers",
-                            value = user.followers.toString()
+                            label = "Followers", value = user.followers.toString()
                         )
                         StatCard(
-                            label = "Repositories",
-                            value = user.publicRepos.toString()
+                            label = "Repositories", value = user.publicRepos.toString()
                         )
                     }
                 }
@@ -143,8 +132,7 @@ fun UserDetailScreen(
 
 @Composable
 private fun StatCard(
-    label: String,
-    value: String
+    label: String, value: String
 ) {
     Card(
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
