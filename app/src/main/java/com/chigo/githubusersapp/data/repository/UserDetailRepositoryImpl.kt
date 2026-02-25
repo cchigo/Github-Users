@@ -1,5 +1,6 @@
 package com.chigo.githubusersapp.data.repository
 
+import com.chigo.githubusersapp.BuildConfig
 import com.chigo.githubusersapp.data.local.datasource.UserLocalDataSource
 import com.chigo.githubusersapp.data.local.mapper.toUserDetail
 import com.chigo.githubusersapp.data.remote.mapper.toDomain
@@ -12,8 +13,10 @@ import com.chigo.githubusersapp.data.util.BaseResponse
 import com.chigo.githubusersapp.data.util.GeneralErrorHandler
 import com.chigo.githubusersapp.data.util.NetworkChecker
 import com.chigo.githubusersapp.data.util.safeApiCall
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import timber.log.Timber
 import javax.inject.Inject
 
 class UserDetailRepositoryImpl @Inject constructor(
@@ -30,11 +33,17 @@ class UserDetailRepositoryImpl @Inject constructor(
 
     private fun emitCachedUserDetail(username: String): Flow<BaseResponse<UserDetail>> = flow {
         val cached = localDataSource.getUserByUsername(username)
-        if (cached != null) emit(BaseResponse.Success(cached.toUserDetail()))
+        if (cached != null) {
+            emit(BaseResponse.Success(cached.toUserDetail()))
+            emit(BaseResponse.Loading)
+            if (BuildConfig.DEBUG) delay(2000L)
+        } else {
+            emit(BaseResponse.Loading)
+        }
     }
 
     private fun fetchUserDetail(username: String): Flow<BaseResponse<UserDetail>> {
-        return safeApiCall(networkChecker, errorHandler) {
+        return safeApiCall(networkChecker, errorHandler, emitLoading = false) {
             val dto = remoteDataSource.getUserDetail(username)
             saveUserDetail(dto)
             dto.toDomain()

@@ -22,9 +22,10 @@ sealed class BaseResponse<out T> {
 inline fun <T> safeApiCall(
     networkChecker: NetworkChecker,
     errorHandler: GeneralErrorHandler,
+    emitLoading: Boolean = true,
     crossinline block: suspend () -> T
 ): Flow<BaseResponse<T>> = flow {
-    emit(BaseResponse.Loading)
+    if (emitLoading) emit(BaseResponse.Loading)
     if (!networkChecker.isConnected()) {
         emit(
             BaseResponse.Error(
