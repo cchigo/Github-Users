@@ -1,2 +1,15 @@
 package com.chigo.githubusersapp.data.mapper
 
+import com.chigo.githubusersapp.data.remote.model.UserDetailDto
+import com.chigo.githubusersapp.domain.model.UserDetail
+
+fun UserDetailDto.toDomain(): UserDetail {
+    return UserDetail(
+        id = id,
+        login = login,
+        avatarUrl = avatarUrl,
+        bio = bio,
+        followers = followers,
+        publicRepos = publicRepos
+    )
+}
