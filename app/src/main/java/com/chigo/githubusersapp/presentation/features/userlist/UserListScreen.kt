@@ -93,7 +93,7 @@ fun UserListScreen(
                     )
                 }
                 is UserListState.Appending -> {
-                    // more pages loading, a float indicator is shown the bottom, with a delay to show this
+                    // more pages loading, a float indicator is shown at the bottom, with a delay to show this
                     AppendLoadingIndicator(
                         modifier = Modifier
                             .align(Alignment.BottomCenter)

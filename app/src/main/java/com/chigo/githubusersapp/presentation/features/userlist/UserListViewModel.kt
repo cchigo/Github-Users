@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
 @HiltViewModel
@@ -35,24 +36,26 @@ class UserListViewModel @Inject constructor(
     val screenState = _screenState.asStateFlow()
 
     fun onLoadStateChanged(loadState: CombinedLoadStates, itemCount: Int) {
-        _screenState.value = when {
-            loadState.refresh is LoadState.Loading && itemCount == 0 ->
-                UserListState.InitialLoading
-            loadState.refresh is LoadState.Loading && itemCount > 0 ->
-                UserListState.Refreshing
-            loadState.append is LoadState.Loading ->
-                UserListState.Appending
-            loadState.refresh is LoadState.Error -> {
-                val error = (loadState.refresh as LoadState.Error).error
-                UserListState.Error(error.message ?: DEFAULT_ERROR_MESSAGE)
+        _screenState.update {
+            when {
+                loadState.refresh is LoadState.Loading && itemCount == 0 ->
+                    UserListState.InitialLoading
+                loadState.refresh is LoadState.Loading && itemCount > 0 ->
+                    UserListState.Refreshing
+                loadState.append is LoadState.Loading ->
+                    UserListState.Appending
+                loadState.refresh is LoadState.Error -> {
+                    val error = (loadState.refresh as LoadState.Error).error
+                    UserListState.Error(error.message ?: DEFAULT_ERROR_MESSAGE)
+                }
+                loadState.append is LoadState.Error -> {
+                    val error = (loadState.append as LoadState.Error).error
+                    UserListState.AppendError("Unable to load more users, please try again" ?: DEFAULT_ERROR_MESSAGE)
+                }
+                loadState.refresh is LoadState.NotLoading ->
+                    UserListState.Success(_users.value)
+                else -> UserListState.Idle
             }
-            loadState.append is LoadState.Error -> {
-                val error = (loadState.append as LoadState.Error).error
-                UserListState.AppendError(error.message ?: DEFAULT_ERROR_MESSAGE)
-            }
-            loadState.refresh is LoadState.NotLoading ->
-                UserListState.Success(_users.value)
-            else -> UserListState.Idle
         }
     }
 }
