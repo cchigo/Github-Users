@@ -9,7 +9,6 @@ import com.chigo.githubusersapp.data.local.datasource.UserLocalDataSource
 import com.chigo.githubusersapp.data.local.db.AppDatabase
 import com.chigo.githubusersapp.data.local.mapper.toUser
 import com.chigo.githubusersapp.data.remote.datasource.UserRemoteDataSource
-import com.chigo.githubusersapp.data.remote.paging.UserPagingSource
 import com.chigo.githubusersapp.data.remote.paging.UserRemoteMediator
 import com.chigo.githubusersapp.data.util.GeneralErrorHandler
 import com.chigo.githubusersapp.domain.model.User
