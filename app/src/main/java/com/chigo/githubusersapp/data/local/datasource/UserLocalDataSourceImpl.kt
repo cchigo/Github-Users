@@ -3,8 +3,9 @@ package com.chigo.githubusersapp.data.local.datasource
 import androidx.paging.PagingSource
 import com.chigo.githubusersapp.data.local.db.UserDao
 import com.chigo.githubusersapp.data.local.model.UserEntity
+import javax.inject.Inject
 
-class UserLocalDataSourceImpl(
+class UserLocalDataSourceImpl @Inject constructor(
     private val userDao: UserDao
 ) : UserLocalDataSource {
 

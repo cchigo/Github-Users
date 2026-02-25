@@ -1,5 +1,7 @@
 package com.chigo.githubusersapp.di
 
+import com.chigo.githubusersapp.data.local.datasource.UserLocalDataSource
+import com.chigo.githubusersapp.data.local.datasource.UserLocalDataSourceImpl
 import com.chigo.githubusersapp.data.remote.datasource.UserRemoteDataSource
 import com.chigo.githubusersapp.data.remote.datasource.UserRemoteDataSourceImpl
 import com.chigo.githubusersapp.data.repository.UserRepositoryImpl
@@ -21,6 +23,12 @@ abstract class RepositoryModule {
     abstract fun bindUserRemoteDataSource(
         impl: UserRemoteDataSourceImpl
     ): UserRemoteDataSource
+
+    @Binds
+    @Singleton
+    abstract fun bindUserLocalDataSource(
+        impl: UserLocalDataSourceImpl
+    ): UserLocalDataSource
 
     @Binds
     @Singleton

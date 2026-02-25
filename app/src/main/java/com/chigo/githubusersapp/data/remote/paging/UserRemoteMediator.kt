@@ -9,8 +9,8 @@ import com.chigo.githubusersapp.data.local.db.AppDatabase
 import com.chigo.githubusersapp.data.local.model.UserEntity
 import com.chigo.githubusersapp.data.remote.datasource.UserRemoteDataSource
 import com.chigo.githubusersapp.data.remote.mapper.toUserEntity
+import com.chigo.githubusersapp.data.util.GeneralErrorHandler
 import com.chigo.githubusersapp.data.util.STARTING_PAGE
-
 /**
  * We assume GitHub's `since` parameter efficiently represents the last fetched key,
  *
@@ -18,7 +18,8 @@ import com.chigo.githubusersapp.data.util.STARTING_PAGE
 @OptIn(ExperimentalPagingApi::class)
 class UserRemoteMediator(
     private val remoteDataSource: UserRemoteDataSource,
-    private val database: AppDatabase
+    private val database: AppDatabase,
+    private val errorHandler: GeneralErrorHandler
 ) : RemoteMediator<Int, UserEntity>() {
 
     private val userDao = database.userDao()
@@ -48,7 +49,8 @@ class UserRemoteMediator(
 
             MediatorResult.Success(endOfPaginationReached = users.isEmpty())
         } catch (e: Exception) {
-            MediatorResult.Error(e)
+            val error = errorHandler.getError(e)
+            MediatorResult.Error(Exception(error.error.title ?: error.error.message))
         }
     }
 }

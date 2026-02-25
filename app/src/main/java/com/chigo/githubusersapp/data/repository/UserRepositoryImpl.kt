@@ -33,7 +33,10 @@ class UserRepositoryImpl @Inject constructor(
                 pageSize = USERS_PER_PAGE,
                 enablePlaceholders = false
             ),
-            remoteMediator = UserRemoteMediator(remoteDataSource, database),
+            remoteMediator = UserRemoteMediator(
+                remoteDataSource =remoteDataSource,
+                database = database,
+                errorHandler = errorHandler),
             pagingSourceFactory = {
                 localDataSource.getUsers()
             }
