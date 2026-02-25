@@ -47,7 +47,7 @@ fun UserListScreen(
                 .fillMaxSize()
                 .padding(innerPadding)
         ) {
-            // loading state — first load
+            // loading state for first load
             if (users.loadState.refresh is LoadState.Loading) {
                 CircularProgressIndicator(
                     modifier = Modifier.align(Alignment.Center)

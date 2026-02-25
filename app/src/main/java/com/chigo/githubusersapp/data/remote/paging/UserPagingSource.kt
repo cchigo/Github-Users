@@ -18,7 +18,7 @@ class UserPagingSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, User> {
         return try {
             val since = params.key ?: STARTING_PAGE
-            if (BuildConfig.DEBUG) delay(5000L) //this is to demo pagination as api can be very fast
+            if (BuildConfig.DEBUG) delay(2000L) //this is to demo pagination as api can be very fast
             val users = remoteDataSource.getUsers(since)
             val domainUsers = users.map { it.toDomain() }
 

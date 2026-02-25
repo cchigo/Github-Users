@@ -109,7 +109,6 @@ fun UserDetailScreen(
                         fontWeight = FontWeight.Bold
                     )
 
-                    // bio
                     user.bio?.let { bio ->
                         Text(
                             text = bio,
@@ -120,7 +119,6 @@ fun UserDetailScreen(
 
                     Spacer(modifier = Modifier.height(8.dp))
 
-                    // stats row
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceEvenly

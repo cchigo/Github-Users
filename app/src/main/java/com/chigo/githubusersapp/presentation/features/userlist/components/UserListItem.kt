@@ -40,7 +40,7 @@ fun UserListItem(
                 .padding(12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // avatar
+
             AsyncImage(
                 model = user.avatarUrl,
                 contentDescription = "${user.login} avatar",
@@ -52,7 +52,6 @@ fun UserListItem(
 
             Spacer(modifier = Modifier.width(12.dp))
 
-            // username and type
             Column(
                 verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
