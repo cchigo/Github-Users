@@ -99,6 +99,7 @@ dependencies {
     // Paging
     implementation(libs.paging.runtime)
     implementation("androidx.paging:paging-compose:3.3.0")
+    implementation("androidx.room:room-paging:2.6.1")
 
     // Utilities
     implementation(libs.timber)
