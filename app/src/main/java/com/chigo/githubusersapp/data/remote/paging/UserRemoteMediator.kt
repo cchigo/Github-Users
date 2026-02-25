@@ -9,6 +9,7 @@ import com.chigo.githubusersapp.data.local.db.AppDatabase
 import com.chigo.githubusersapp.data.local.model.UserEntity
 import com.chigo.githubusersapp.data.remote.datasource.UserRemoteDataSource
 import com.chigo.githubusersapp.data.remote.mapper.toUserEntity
+import com.chigo.githubusersapp.data.remote.model.UserDto
 import com.chigo.githubusersapp.data.util.GeneralErrorHandler
 import com.chigo.githubusersapp.data.util.STARTING_PAGE
 /**
@@ -39,6 +40,7 @@ class UserRemoteMediator(
             }
 
             val users = remoteDataSource.getUsers(since)
+           // val users = emptyList<UserDto>() //used to: test emptylist
 
             database.withTransaction {
                 if (loadType == LoadType.REFRESH) {

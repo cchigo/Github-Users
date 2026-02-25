@@ -20,9 +20,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
+import com.chigo.githubusersapp.R
 import com.chigo.githubusersapp.presentation.features.userlist.components.AppendLoadingIndicator
 import com.chigo.githubusersapp.presentation.features.userlist.components.UserListItem
 import com.chigo.githubusersapp.presentation.sharedcomponents.ErrorSnackbar
@@ -40,12 +42,17 @@ fun UserListScreen(
         viewModel.onLoadStateChanged(users.loadState, users.itemCount)
     }
 
+    LaunchedEffect(Unit) {
+        viewModel.refreshTrigger.collect {
+            users.retry()
+        }
+    }
     Scaffold(
         topBar = {
             TopAppBar(
                 title = {
                     Text(
-                        text = "GitHub Users",
+                        text = stringResource(R.string.github_users),
                         style = MaterialTheme.typography.titleLarge,
                         color = Color.Black
                     )
@@ -120,7 +127,15 @@ fun UserListScreen(
                             .padding(bottom = 16.dp)
                     )
                 }
-                is UserListState.Success -> {}
+                is UserListState.Empty -> {
+                    Text(
+                        text = stringResource(R.string.no_users_found),
+                        modifier = Modifier.align(Alignment.Center),
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+               else -> {}
             }
         }
     }

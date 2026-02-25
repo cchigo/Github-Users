@@ -1,22 +1,19 @@
 package com.chigo.githubusersapp.data.repository
 
-import com.chigo.githubusersapp.BuildConfig
 import com.chigo.githubusersapp.data.local.datasource.UserLocalDataSource
 import com.chigo.githubusersapp.data.local.mapper.toUserDetail
-import com.chigo.githubusersapp.data.remote.mapper.toDomain
 import com.chigo.githubusersapp.data.remote.datasource.UserRemoteDataSource
+import com.chigo.githubusersapp.data.remote.mapper.toDomain
 import com.chigo.githubusersapp.data.remote.mapper.toUserEntity
 import com.chigo.githubusersapp.data.remote.model.UserDetailDto
-import com.chigo.githubusersapp.domain.model.UserDetail
-import com.chigo.githubusersapp.domain.repository.UserDetailRepository
 import com.chigo.githubusersapp.data.util.BaseResponse
 import com.chigo.githubusersapp.data.util.GeneralErrorHandler
 import com.chigo.githubusersapp.data.util.NetworkChecker
 import com.chigo.githubusersapp.data.util.safeApiCall
-import kotlinx.coroutines.delay
+import com.chigo.githubusersapp.domain.model.UserDetail
+import com.chigo.githubusersapp.domain.repository.UserDetailRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import timber.log.Timber
 import javax.inject.Inject
 
 class UserDetailRepositoryImpl @Inject constructor(
@@ -36,7 +33,7 @@ class UserDetailRepositoryImpl @Inject constructor(
         if (cached != null) {
             emit(BaseResponse.Success(cached.toUserDetail()))
             emit(BaseResponse.Loading)
-            if (BuildConfig.DEBUG) delay(2000L)
+            //if (BuildConfig.DEBUG) delay(2000L)
         } else {
             emit(BaseResponse.Loading)
         }

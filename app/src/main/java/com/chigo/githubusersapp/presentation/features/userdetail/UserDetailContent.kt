@@ -15,8 +15,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.chigo.githubusersapp.R
 import com.chigo.githubusersapp.domain.model.UserDetail
 import com.chigo.githubusersapp.presentation.sharedcomponents.UserAvatarImage
 
@@ -54,8 +56,12 @@ fun UserDetailContent(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
-            StatCard(label = "Followers", value = user.followers.toString())
-            StatCard(label = "Repositories", value = user.publicRepos.toString())
+            user.followers.takeIf { it > 0 }?.let {
+                StatCard(label = stringResource(R.string.followers), value = it.toString())
+            }
+            user.publicRepos.takeIf { it > 0 }?.let {
+                StatCard(label = stringResource(R.string.repositories), value = it.toString())
+            }
         }
     }
 }

@@ -12,4 +12,6 @@ sealed class UserListState {
     data class Success(val users: PagingData<User>) : UserListState()
     data class Error(val message: String) : UserListState()
     data class AppendError(val message: String) : UserListState()
+
+    object Empty : UserListState()
 }

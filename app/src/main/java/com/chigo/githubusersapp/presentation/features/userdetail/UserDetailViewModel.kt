@@ -8,7 +8,6 @@ import com.chigo.githubusersapp.data.util.BaseResponse
 import com.chigo.githubusersapp.data.util.DEFAULT_ERROR_MESSAGE
 import com.chigo.githubusersapp.domain.usecase.GetUserDetailUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
