@@ -127,3 +127,13 @@ cd GithubUsersApp
 
 No API key required — uses public GitHub REST API.
 
+##### Known Limitations
+- The user list requires at least one successful network fetch before it works offline
+- If a user's detail was never fetched, only their avatar and login are shown when offline
+- There is no cache expiry, so stale data may appear without a manual refresh
+- Pagination assumes GitHub's `since` parameter always accepts the last fetched user id as a next page indicator
+
+##### References
+- [Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
+- [GitHub REST API](https://docs.github.com/en/rest/users/users)
+
