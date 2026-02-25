@@ -43,6 +43,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 
@@ -97,6 +98,7 @@ dependencies {
 
     // Paging
     implementation(libs.paging.runtime)
+    implementation("androidx.paging:paging-compose:3.3.0")
 
     // Utilities
     implementation(libs.timber)
@@ -104,6 +106,8 @@ dependencies {
     implementation(libs.work.manager.dagger)
     ksp(libs.work.manager.dagger.kapt)
     implementation("androidx.datastore:datastore-preferences:1.1.1")
+    implementation("io.coil-kt:coil-compose:2.6.0")
+    implementation("com.airbnb.android:lottie-compose:6.4.0")
 
     // Coroutines
     implementation(libs.kotlinx.coroutines.core)
