@@ -4,7 +4,6 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
-import com.chigo.githubusersapp.BuildConfig
 import com.chigo.githubusersapp.data.util.BaseResponse
 import com.chigo.githubusersapp.data.util.DEFAULT_ERROR_MESSAGE
 import com.chigo.githubusersapp.domain.usecase.GetUserDetailUseCase
@@ -47,7 +46,7 @@ class UserDetailViewModel @Inject constructor(
                 when (response) {
                     is BaseResponse.Loading -> {
                         _state.update { UserDetailState.Loading }
-                        if (BuildConfig.DEBUG) delay(1500)
+                       // if (BuildConfig.DEBUG) delay(1500)
                     }
                     is BaseResponse.Success -> {
                         _state.update { UserDetailState.Success(response.data) }

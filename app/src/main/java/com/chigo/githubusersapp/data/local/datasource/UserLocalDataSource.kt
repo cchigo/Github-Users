@@ -9,5 +9,9 @@ interface UserLocalDataSource {
 
     suspend fun getUserById(userId: Int): UserEntity?
 
+    suspend fun getUserByUsername(username: String): UserEntity?
+
     suspend fun upsertUsers(users: List<UserEntity>)
+
+    suspend fun clearUsers()
 }

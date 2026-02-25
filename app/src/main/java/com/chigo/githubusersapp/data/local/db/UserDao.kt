@@ -15,6 +15,11 @@ interface UserDao {
     @Query("SELECT * FROM users_table WHERE id = :userId")
     suspend fun getUserById(userId: Int): UserEntity?
 
+    @Query("SELECT * FROM users_table WHERE login = :username")
+    suspend fun getUserByUsername(username: String): UserEntity?
     @Upsert
     suspend fun upsertUsers(users: List<UserEntity>)
+
+    @Query("DELETE FROM users_table")
+    suspend fun clearUsers()
 }

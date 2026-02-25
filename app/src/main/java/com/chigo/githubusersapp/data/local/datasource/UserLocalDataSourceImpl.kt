@@ -15,6 +15,9 @@ class UserLocalDataSourceImpl(
     override suspend fun getUserById(userId: Int): UserEntity? {
         return userDao.getUserById(userId)
     }
+    override suspend fun getUserByUsername(username: String): UserEntity? = userDao.getUserByUsername(username)
+
+    override suspend fun clearUsers() = userDao.clearUsers()
 
     override suspend fun upsertUsers(users: List<UserEntity>) {
         userDao.upsertUsers(users)
